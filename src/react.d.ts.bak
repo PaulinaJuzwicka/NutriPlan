@@ -1,0 +1,51 @@
+// This file provides type definitions for React
+
+// Import React types
+type ReactElement = any;
+type ComponentType<P = {}> = any;
+type FC<P = {}> = (props: P) => ReactElement | null;
+
+declare module 'react' {
+  // Re-export React types
+  export type { FC, ComponentType, ReactElement };
+  
+  // Export hooks
+  export function useState<S>(initialState: S | (() => S)): [S, (newState: S | ((prevState: S) => S)) => void];
+  export function useEffect(effect: () => void | (() => void), deps?: readonly any[]): void;
+  
+  // Export components
+  export const Suspense: FC<{ children?: React.ReactNode }>;
+  export function lazy<T extends ComponentType<any>>(
+    factory: () => Promise<{ default: T }>
+  ): T;
+  
+  // Export event types
+  export interface ChangeEvent<T = Element> extends SyntheticEvent<T> {
+    target: EventTarget & T;
+  }
+  
+  export interface FormEvent<T = Element> extends SyntheticEvent<T> {
+    // FormEvent specific properties
+  }
+  
+  // Add any other types you need
+  export interface SyntheticEvent<T = Element, E = Event> {
+    currentTarget: EventTarget & T;
+    target: EventTarget & T;
+    // Add other SyntheticEvent properties as needed
+  }
+}
+
+// Global JSX namespace
+declare namespace JSX {
+  interface IntrinsicElements {
+    [elemName: string]: any;
+  }
+}
+
+// This allows TypeScript to understand the 'React' global
+declare const React: {
+  useState: <S>(initialState: S | (() => S)) => [S, (newState: S | ((prevState: S) => S)) => void];
+  useEffect: (effect: () => void | (() => void), deps?: readonly any[]) => void;
+  // Add other React globals as needed
+};
