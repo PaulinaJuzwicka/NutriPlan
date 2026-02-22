@@ -1,0 +1,10 @@
+{
+  "name": "NutriPlan",
+  "short_name": "NutriPlan",
+  "description": "Your personal nutrition and health planning assistant",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary"
+}
